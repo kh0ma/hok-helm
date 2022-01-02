@@ -30,10 +30,10 @@ postgres:
   
     mountPath: /var/lib/pgsql
     
-    storageClassName: gp2
+    storageClassName: hostpath
     accessModes: ReadWriteOnce
     
-    storage: 10Gi
+    storage: 1Gi
 
 
 
@@ -62,7 +62,7 @@ ambariserver:
   persistentVolume:
     enabled: true
       
-    storageClassName: gp2
+    storageClassName: hostpath
     accessModes: ReadWriteOnce
     
     storage: 1Gi
@@ -96,10 +96,10 @@ masternode:
   
     mountPath: /hadoop
     
-    storageClassName: gp2
+    storageClassName: hostpath
     accessModes: ReadWriteOnce
     
-    storage: 10Gi
+    storage: 1Gi
 
 datanode:
   enabled: true
@@ -128,10 +128,10 @@ datanode:
   
     mountPath: /hadoop
     
-    storageClassName: gp2
+    storageClassName: hostpath
     accessModes: ReadWriteOnce
     
-    storage: 10Gi
+    storage: 1Gi
 
 edgenode:
   enabled: true
@@ -158,14 +158,14 @@ edgenode:
   persistentVolume:
     enabled: true
     mountPath: /hadoop
-    storageClassName: gp2
+    storageClassName: hostpath
     accessModes: ReadWriteOnce
-    storage: 10Gi
+    storage: 1Gi
 
 
 
 metacontroller:
-  enabled: true
+  enabled: false
   name: metacontroller
   image:
     repository: metacontroller/metacontroller
@@ -178,7 +178,7 @@ metacontroller:
     create: true
 
   crds:
-    create: true
+    create: false
 
 
 
@@ -202,6 +202,8 @@ kdc:
 
   persistentVolume:
     enabled: true
-    storageClassName: gp2
+    storageClassName: hostpath
     accessModes: ReadWriteOnce
-    storage: 10Gi
+    storage: 1Gi
+crd:
+  manage: false

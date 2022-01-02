@@ -1,0 +1,14 @@
+{{- if .Values.crd.manage -}}
+
+  {{ $currentScope := . }}
+    {{ $crdManifests := list }}
+    {{ range $path, $_ := .Files.Glob "metacontroller/*crds.yaml" }}
+    {{ with $currentScope}}
+    {{ $crdManifests = append $crdManifests (.Files.Get $path) }}
+    {{ end }}
+    {{ end }}
+
+    include "crd-update.tpl" (list . .Values.crd (dict
+    "pre-install,pre-upgrade,pre-rollback" $crdManifests
+    ))
+    {{- end -}}
